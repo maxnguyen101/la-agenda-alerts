@@ -286,7 +286,7 @@ The marketing site is in `/docs` and deploys automatically via GitHub Pages.
 
 **Edit contact email:**
 - File: `/docs/index.html`
-- Find: `contact@laagendaalerts.com`
+- Find: `mnguyen9@usc.edu`
 - Replace with your actual email
 
 **Edit pricing:**

@@ -238,7 +238,7 @@
       </div>
       
       <p class="source-suggest">
-        <a href="mailto:contact@laagendaalerts.com?subject=Suggest a source">Suggest a source</a> — we're always adding more.
+        <a href="mailto:mnguyen9@usc.edu?subject=Suggest a source">Suggest a source</a> — we're always adding more.
       </p>
     </div>
   </section>
@@ -363,7 +363,7 @@
               Priority support
             </li>
           </ul>
-          <button class="btn btn-primary" onclick="getFreeAlerts()" style="width: 100%;">Get Pro</button>
+          <button class="btn btn-primary" onclick="openPaymentModal()" style="width: 100%;">Get Pro</button>
         </div>
         
         <div class="pricing-card">
@@ -391,7 +391,7 @@
               White-label options
             </li>
           </ul>
-          <a href="mailto:contact@laagendaalerts.com?subject=Enterprise Inquiry" class="btn btn-secondary" style="width: 100%; display: inline-flex;">Contact Us</a>
+          <a href="mailto:mnguyen9@usc.edu?subject=Enterprise Inquiry" class="btn btn-secondary" style="width: 100%; display: inline-flex;">Contact Us</a>
         </div>
       </div>
       
@@ -491,14 +491,56 @@
           <a href="#sources">Sources</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
-          <a href="mailto:contact@laagendaalerts.com">Contact</a>
+          <a href="mailto:mnguyen9@usc.edu">Contact</a>
         </div>
         <p class="footer-copy">© 2026 LA Agenda Alerts. Made for Angelenos.</p>
       </div>
     </div>
   </footer>
 
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; position: relative;">
+      <button onclick="closePaymentModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      <h3 style="margin-bottom: 1rem;">Upgrade to Pro - $5/month</h3>
+      <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">Choose your payment method:</p>
+      
+      <a href="https://venmo.com/u/la_agenda_alerts" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #008CFF; color: white; border-radius: 8px; text-decoration: none; margin-bottom: 0.75rem; font-weight: 600;">
+        <span style="font-size: 1.5rem;">💸</span>
+        <div>
+          <div>Pay with Venmo</div>
+          <div style="font-size: 0.75rem; opacity: 0.8;">@la_agenda_alerts</div>
+        </div>
+      </a>
+      
+      <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #6B1E6B; color: white; border-radius: 8px; margin-bottom: 1rem; font-weight: 600;">
+        <span style="font-size: 1.5rem;">💳</span>
+        <div>
+          <div>Pay with Zelle</div>
+          <div style="font-size: 0.75rem; opacity: 0.8;">714-800-4033</div>
+        </div>
+      </div>
+      
+      <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; font-size: 0.875rem;">
+        <strong>After paying:</strong><br>
+        Email receipt to <a href="mailto:mnguyen9@usc.edu" style="color: #008CFF;">mnguyen9@usc.edu</a><br>
+        Your account will be upgraded within 24 hours.
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="assets/app.js"></script>
+  <script>
+    function openPaymentModal() {
+      document.getElementById('paymentModal').style.display = 'flex';
+    }
+    function closePaymentModal() {
+      document.getElementById('paymentModal').style.display = 'none';
+    }
+    document.getElementById('paymentModal').addEventListener('click', function(e) {
+      if (e.target === this) closePaymentModal();
+    });
+  </script>
 </body>
 </html>
