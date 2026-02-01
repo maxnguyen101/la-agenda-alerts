@@ -1,0 +1,137 @@
+# LA Agenda Alerts - Outreach Leads
+# Added: 2026-02-01
+# Format: email - Name, Company/Role, Reason for outreach
+
+# Land Use Law Firms & Consultants
+brad@raa-inc.com - Brad Rosenheim, President of Rosenheim & Associates, manages massive entitlements in Warner Center, needs instant PLUM alerts to protect client assets
+chris@raa-inc.com - Chris, Sr. Project Manager at Rosenheim, handles daily legislative tracking grind, primary beneficiary of automation
+dana@three6ixty.net - Dana, Principal at Three6ixty, specializes in community outreach and entitlements, needs real-time Planning Commission scheduling
+sara@three6ixty.net - Sara, SVP at Three6ixty, coordinates complex project approvals, needs alerts on staff report releases from City Planning
+myca@three6ixty.net - Myca, Planning Project Manager at Three6ixty, hands-on user who manually checks agendas, would champion the tool
+mike@afriat.com - Mike, Afriat Consulting Group, focuses on transit/transportation policy, prime target for LA Metro Board and DOT alerts
+aaron@afriat.com - Aaron, President of Afriat Consulting, represents major healthcare and real estate clients, needs County Board of Supervisors monitoring
+info@marathon-com.com - Marathon Communications, one of LA's largest firms, heavily involved in controversial development projects, needs instant PLUM updates
+luke@craiglawson.com - Luke, Craig Lawson & Co., manages inquiries for premier land use consultancy, would benefit from white-labeling agenda alerts
+info@agd-landuse.com - Armbruster Goldsmith & Delvac, top-tier land use law firm handling CEQA compliance, needs alerts on environmental filings
+bill@agd-landuse.com - Bill, Name Partner at Armbruster Goldsmith & Delvac, handles mega-projects like Hollywood & Wilcox, needs instant continuation alerts
+jbrandes@kindelgagan.com - J Brandes, Admin Partner at Kindel Gagan, manages firm operations and lobbyist tracking, key gatekeeper for enterprise subscriptions
+
+# Public Affairs & Lobbying Firms
+info@kirraconsulting.com - Kirra Consulting (Joshua Perttula), represents tech and infrastructure clients, needs alerts on RFPs from LA Metro and City Council
+am@kirraconsulting.com.au - Kirra Consulting Admin, handles logistical monitoring of government agendas for firm lobbyists
+info@cerrell.com - Cerrell Associates, legacy public affairs firm, needs to track energy and environmental policy via AQMD and Sanitation alerts
+hal@cerrell.com - Hal Dash, Principal at Cerrell, focuses on energy and infrastructure, target for LA Metro and DWP-related council items
+
+# Major Law Firms - Land Use & Environmental
+ekhalatian@mayerbrown.com - E Khalatian, Partner at Mayer Brown, highly active in CEQA/Land Use, needs alerts on Zone Change ordinances for major developers
+rbruckner@mayerbrown.com - R Bruckner, Mayer Brown, former Director of Planning, understands value of catching agenda amendments early
+jeff.bjork@lw.com - Jeff Bjork, Latham & Watkins, handles financial restructuring, tracks city economic policy and tax motions
+maria.hoye@lw.com - Maria Hoye, Latham & Watkins, specializes in environmental approvals, perfect target for AQMD and CEQA-related alerts
+john.heintz@lw.com - John Heintz, Latham & Watkins, focuses on project siting and approvals, needs immediate Planning Commission notifications
+michaelnytzen@paulhastings.com - Michael Nytzen, Sr. Land Use Manager at Paul Hastings, manages entitlement process, would value time savings
+laurenglaser@paulhastings.com - Lauren Glaser, Associate at Paul Hastings, tasked with monitoring agendas for partners, primary user
+bethgordie@paulhastings.com - Beth Gordie, Partner at Paul Hastings, secures approvals for contentious developments, needs alerts on opposition letters
+djmoore@paulhastings.com - DJ Moore, Partner at Paul Hastings, focuses on environmental/energy infrastructure, needs AQMD and LA Sanitation alerts
+bsaltsman@gibsondunn.com - B Saltsman, Partner at Gibson Dunn, Chair of Land Use, handles major projects like LAX terminals, needs LA Metro and Planning alerts
+
+# Boutique Land Use Firms
+fgaines@gaineslaw.com - F Gaines, Founding Partner at Gaines & Stacey, deeply involved in San Fernando Valley land use, needs PLUM alerts for Valley projects
+abartley@gaineslaw.com - A Bartley, Partner at Gaines & Stacey, specializes in government relations and entitlements, needs real-time agenda updates
+jamie.hall@channellawgroup.com - Jamie Hall, Channel Law Group, famous for CEQA litigation against developers, needs alerts to file timely appeals
+
+# Specialized Consultants
+andy4artrodriguez@yahoo.com - Art Rodriguez & Associates, Liquor License specialist, needs alerts for Zoning Administrator (CUB) hearings
+admin@krostcpas.com - Krost CPAs, Liquor License Specialists, tracks CUB approvals and restaurant permitting changes
+Getitdone@burnhamnationwide.com - Burnham Nationwide, code compliance and permit expediting, needs Building & Safety commission agenda alerts
+contactus@thecodesolution.com - The Code Solution, land use consultants, tracks density bonus and zoning code amendments
+info@fedesignandconsulting.com - FE Design & Consulting, hospitality entitlements, needs weekly Planning Commission and ZA hearing alerts
+
+# Major Developers
+leasing@jamisonservices.com - Jamison Services, major Koreatown landlord, needs alerts on adaptive reuse ordinances and Metro transit corridor planning
+info@jamisonservices.com - Jamison Services General, development teams tracking entitlements and density bonus opportunities
+commercialproperties@onni.com - Onni Group, high-rise developer, needs alerts on Downtown LA community plan updates and street closure permits
+acquisitions@onni.com - Onni Group Acquisitions, tracks land use opportunity zones and upzoning legislation in City Council
+communications@related.com - Related California, massive mixed-use developer, tracks Housing Authority and County Board agendas for public-private partnerships
+bob@greystar.com - Bob Faith, CEO Greystar, huge multifamily operator, needs alerts on rent control changes and tenant protection ordinances
+info@hollandpartnergroup.com - Holland Partner Group, mixed-use developers, monitors PLUM for project approvals and CEQA clearances
+karen@diehlcommunications.com - Karen Diehl, represents CIM Group, tracks City Council sentiment and policy shifts
+
+# Architecture Firms
+slopez@hksinc.com - Steven Lopez, HKS Architects, Health Practice Leader, needs alerts on hospital construction regulations and County Health agendas
+enrico.dagostini@perkinswill.com - Enrico Dagostini, Perkins & Will, transit infrastructure focus, LA Metro Board alerts vital for design contracts
+peter.busby@perkinswill.com - Peter Busby, Perkins & Will, sustainable design leader, needs alerts on LA Green Building Code updates
+inquiries@coarchitects.com - CO Architects, healthcare/education specialization, monitors County and LACCD agendas for facility RFPs
+jknudsen@coarchitects.com - Jenna Knudsen, Principal at CO Architects, decision maker for firm-wide monitoring tools
+maria.hoye@lw.com - Maria Hoye, Latham & Watkins, specializes in environmental approvals, target for AQMD and CEQA alerts
+daniela.maldonado@zgf.com - Daniela Maldonado, ZGF Architects, sustainable design focus, tracks AQMD and City sustainability mandates
+losangeles@hok.com - HOK Los Angeles, major global firm, tracks large public infrastructure RFPs via Council agendas
+somdc@som.com - Skidmore Owings & Merrill, high-rise architecture, tracks Downtown community plans and seismic ordinances
+bspicer@nbbj.com - B Spicer, NBBJ, healthcare and commercial design, tracks planning entitlements and hospital seismic compliance
+careers@populous.com - Populous, stadium specialists, tracks 2028 Olympics planning agendas and venue contracts
+ftpsupport@acmartin.com - AC Martin Tech Support, IT contact, understands value of API integration
+
+# Construction Firms
+turner@tcco.com - Turner Construction, handles massive commercial builds, tracks permits and labor regulations on public works
+nboro@tcco.com - Noah Boro, VP at Turner Construction, tracks regional construction bids and PLA agreements
+RJennings@swinerton.com - Bobby Jennings, VP at Swinerton Commercial Division, needs alerts on project approvals to initiate bidding
+Daniel.Getting@swinerton.com - Daniel Getting, Director of Preconstruction at Swinerton, needs early intel on projects entering pipeline
+customerservice@bernardsinc.com - Bernards, major public works contractor, tracks school district bonds and city construction contracts
+cbabington@morleybuilders.com - Craig Babington, Business Dev at Morley Builders, needs to know when projects pass PLUM for construction contracts
+pankow@pankow.com - Pankow Builders, complex concrete specialization, tracks engineering/seismic retrofit ordinances and high-rise approvals
+prequal@hdcco.com - Hathaway Dinwiddie, needs info on subcontractor requirements from city contracts and labor agreements
+jturner@tcco.com - Jaimie Turner, VP at Turner Construction, tracking for regional construction bids and projects
+jwilkins@pankow.com - Jennifer Wilkins, Pankow Builders, contact for new opportunities and hiring, interested in project pipeline
+
+# Affordable Housing Developers
+spontell@nationalcore.org - Steve Pontell, President National CORE, major affordable developer, needs Housing Authority funding alerts
+pwhitaker@nationalcore.org - Patricia Whitaker, National CORE, manages housing programs, tracks TCAC and CDLAC funding agendas
+mbaylis@bridgehousing.com - Mark Baylis, BRIDGE Housing, needs alerts on surplus land declarations by city for development sites
+customerservice@mercyhousing.org - Mercy Housing California, operates supportive housing, tracks County Health/Homelessness agendas
+info@abodecommunities.org - Abode Communities, tracks Planning Commission approvals for affordable housing projects
+mfolland@abodecommunities.org - Megan Folland, VP Advancement at Abode, needs alerts for funding opportunities and media mentions
+outreach@jamboreehousing.com - Jamboree Housing, tracks community opposition or support in agendas for their developments
+pathlosangeles@epath.org - PATH, needs daily alerts on LAHSA and City Council homelessness committee motions
+info@unionstationhs.org - Union Station Homeless Services, tracks service provider contracts and funding renewals at County level
+dgallo@acof.org - Dora Gallo, CEO A Community of Friends, leader in mental health housing, tracks County Dept of Mental Health agendas
+linc@linchousing.org - LINC Housing, affordable housing developer, tracks inclusionary zoning policies and density bonus updates
+snakaatari@metahousing.com - Scott Nakaatari, Meta Housing Corp, active affordable developer, needs PLUM alerts for project entitlements
+accounting@holoscommunities.org - Holos Communities, tracks supportive housing funding and voucher availability
+kpeterson@mercyhousing.org - Mercy Housing Communications, tracks policy changes affecting affordable housing funding
+communications@unionstationhs.org - Union Station Homeless Services, tracks media and policy announcements
+info@skidrow.org - Skidmore Housing Trust, monitors Skid Row specific policies and funding for SRO housing
+
+# Tenant Advocates & Housing Rights
+downtown@latenantsunion.org - LA Tenants Union DTLA, needs immediate alerts on unlawful detainer discussions or eviction moratorium expirations
+info@housingrightscenter.org - Housing Rights Center, investigates discrimination, monitors Fair Housing policy at City/County level
+calmansour@hrc-la.org - Chancela Al-Mansour, Exec Director HRC, policy leader on fair housing, tracks Rent Stabilization Board actions
+larry.gross@cesinaction.org - Larry Gross, Coalition for Economic Survival, historic tenant advocate, tracks Rent Stabilization Ordinance changes
+evictions@innercitylaw.org - Inner City Law Center, legal aid for slum housing, monitors City Attorney reports on code enforcement
+jburbank@innercitylaw.org - Jacqueline Burbank, Comms at Inner City Law, needs alerts for press releases on housing policy changes
+info@saje.net - SAJE, tracks gentrification and policing in South LA, monitors Planning Commission for displacement risks
+omar@abundanthousingla.org - Omar, Abundant Housing LA, YIMBY advocacy, needs alerts on every housing project hearing to mobilize support
+keith@yimbylaw.org - Keith Diggs, YIMBY Law, sues cities for non-compliance, needs alerts on Housing Element updates to file litigation
+
+# Neighborhood Councils
+info@dlanc.com - Downtown LA NC, central hub for massive development, tracks everything in CD14 including liquor permits and zoning
+president@hhwnc.org - Anastasia Mann, President Hollywood Hills West NC, very active on hillside ordinances and party house rules
+board@silverlakenc.org - Silver Lake NC, tracks reservoir projects, gentrification, and heavy development on Sunset Blvd
+scott.plante@silverlakenc.org - Scott Plante, Silver Lake NC, active on environmental issues, needs alerts on banking divestment and sustainability
+board@studiocitync.org - Studio City NC, active on Ventura Blvd specific plan and Harvard-Westlake expansion issues
+lisasarkin@studiocitync.org - Lisa Sarkin, Land Use Chair Studio City NC, deep knowledge of planning, needs precise alerts on valley entitlements
+info@venicenc.org - Venice NC, epicenter of coastal land use and homelessness debates, needs alerts on Coastal Commission items
+president@encinonc.org - Roy Nwaisser, President Encino NC, tracks Sepulveda Basin development and Ventura Blvd density issues
+info@resedacouncil.org - Reseda NC, tracks revitalization projects and art grants in the West Valley
+landuse@chatsworthcouncil.org - Chatsworth NC Land Use, tracks equestrian zoning protection and low-density ordinances
+info@brentwoodcommunitycouncil.org - Brentwood Community Council, wealthy homeowner group, tracks fire safety and density bonuses in high fire zones
+info@benedictcanyonassociation.org - Benedict Canyon Association, focuses on mansionization ordinances and hillside grading permits
+info@belairassociation.org - Bel-Air Association, highly litigious homeowner group, tracks hauling permits and party house ordinances
+info@pacpalicc.org - Pacific Palisades Community Council, tracks coastal access issues and park usage permits
+
+# Media & Journalism
+Andrew.Khouri@latimes.com - Andrew Khouri, LA Times Housing, needs alerts on development trends and tenant protection votes
+Doug.Smith@latimes.com - Doug Smith, LA Times Data/Homelessness, tracks LAHSA count methodology and funding metrics
+Roger.Vincent@latimes.com - Roger Vincent, LA Times Commercial RE, covers skyscrapers, needs alerts on major Downtown project entitlements
+tips@laist.com - LAist General Tips, entry point for broader city hall scandals found in agenda fine print
+dwagner@laist.com - David Wagner, LAist Housing Reporter, focuses on tenant issues, needs alerts on Rent Stabilization Board actions
+info@lataco.com - L.A. Taco, covers street vending and food policy, needs alerts on street vending ordinances and enforcement
+editor@smdp.com - Santa Monica Daily Press Editor, covers westside development and Santa Monica City Council overlap with LA
