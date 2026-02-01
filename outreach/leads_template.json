@@ -1,0 +1,12 @@
+{
+  "leads": [
+    {
+      "email": "example@email.com",
+      "name": "First Name",
+      "reason": "Why they're a good fit (1 sentence)",
+      "source": "Where you found them",
+      "status": "pending",
+      "added_date": "2026-02-01"
+    }
+  ]
+}

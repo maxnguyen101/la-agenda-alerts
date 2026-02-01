@@ -29,6 +29,106 @@
       ],
       "cadence": "Weekly on Tuesdays",
       "description": "LA County Board of Supervisors agenda"
+    },
+    {
+      "id": "city_planning",
+      "name": "LA City Planning Commission",
+      "type": "agenda",
+      "urls": [
+        "https://planning.lacity.gov/about/commission-meetings"
+      ],
+      "cadence": "Weekly on Thursdays",
+      "description": "City Planning Commission hearings on development projects"
+    },
+    {
+      "id": "metro_board",
+      "name": "LA Metro Board",
+      "type": "agenda",
+      "urls": [
+        "https://boardagendas.metro.net/"
+      ],
+      "cadence": "Monthly",
+      "description": "LA Metro Board of Directors meetings - transit and transportation"
+    },
+    {
+      "id": "hcidla",
+      "name": "LA Housing Department (HCIDLA)",
+      "type": "news",
+      "urls": [
+        "https://hcidla.lacity.gov/news-events"
+      ],
+      "cadence": "As needed",
+      "description": "Housing Community Investment and Development news"
+    },
+    {
+      "id": "rent_stabilization",
+      "name": "LA Rent Stabilization Board",
+      "type": "agenda",
+      "urls": [
+        "https://hcidla.lacity.gov/rsa-commission"
+      ],
+      "cadence": "Monthly",
+      "description": "Rent Stabilization Commission meetings and agendas"
+    },
+    {
+      "id": "hacola",
+      "name": "LA Housing Authority (HACoLA)",
+      "type": "agenda",
+      "urls": [
+        "https://www.hacola.org/"
+      ],
+      "cadence": "Monthly",
+      "description": "Housing Authority of the City of LA - affordable housing programs"
+    },
+    {
+      "id": "lacda",
+      "name": "LA County Development Authority",
+      "type": "agenda",
+      "urls": [
+        "https://lacda.org/"
+      ],
+      "cadence": "Monthly",
+      "description": "County housing and community development programs"
+    },
+    {
+      "id": "ladot",
+      "name": "LA Department of Transportation",
+      "type": "news",
+      "urls": [
+        "https://ladot.lacity.org/"
+      ],
+      "cadence": "As needed",
+      "description": "City transportation news, bike lanes, traffic updates"
+    },
+    {
+      "id": "caltrans_d7",
+      "name": "Caltrans District 7",
+      "type": "news",
+      "urls": [
+        "https://dot.ca.gov/caltrans-near-me/district-7"
+      ],
+      "cadence": "As needed",
+      "description": "State highway and freeway projects in LA/Ventura counties"
+    },
+    {
+      "id": "aqmd",
+      "name": "South Coast Air Quality Management",
+      "type": "agenda",
+      "urls": [
+        "https://www.aqmd.gov/"
+      ],
+      "cadence": "Monthly",
+      "description": "Air quality regulations and environmental permits"
+    },
+    {
+      "id": "la_sanitation",
+      "name": "LA Sanitation",
+      "type": "news",
+      "urls": [
+        "https://lacitysan.org/"
+      ],
+      "cadence": "As needed",
+      "description": "Trash, recycling, and environmental services updates"
     }
   ]
 }

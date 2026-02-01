@@ -1,0 +1,30 @@
+# LA Agenda Alerts V2 - Complete Cron Schedule
+# Auto-installed: 2026-02-01
+# 
+# ============================================
+# V2 CORE PIPELINE (3x daily)
+# ============================================
+
+# Run full pipeline: fetch → parse → match → notify
+0 8,13,18 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 v2/pipeline.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/v2_pipeline.log" 2>&1
+
+# ============================================
+# HEALTH MONITORING
+# ============================================
+
+# Source health checks every 6 hours
+0 */6 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 v2/health_monitor.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/v2_health.log" 2>&1
+
+# Weekly digest email (Sunday 9am)
+0 9 * * 0 cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 v2/health_monitor.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/v2_digest.log" 2>&1
+
+# ============================================
+# DASHBOARD KEEPALIVE
+# ============================================
+
+# Keep dashboard data fresh every 30 minutes
+*/30 * * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && curl -s http://localhost:8080/api/health > /dev/null 2>&1 || true
+
+# ============================================
+# END
+# ============================================

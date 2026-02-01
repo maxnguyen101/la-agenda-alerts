@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "features": {
+    "auth_required": false,
+    "pro_plan_enabled": true,
+    "org_plan_enabled": false,
+    "sms_enabled": true,
+    "calendar_ics_enabled": true,
+    "advanced_keywords": true
+  },
+  "plans": {
+    "free": {
+      "max_recipients": 1,
+      "max_keywords": 10,
+      "keyword_logic": "OR",
+      "retry_attempts": 1,
+      "channels": ["email"],
+      "support_level": "best_effort"
+    },
+    "pro": {
+      "price_monthly": 9,
+      "max_recipients": 2,
+      "max_keywords": 50,
+      "keyword_logic": "advanced",
+      "retry_attempts": 3,
+      "channels": ["email", "sms"],
+      "support_level": "standard",
+      "requires_login": true
+    },
+    "org": {
+      "price_monthly": 39,
+      "max_recipients": 5,
+      "max_keywords": 200,
+      "keyword_logic": "advanced",
+      "retry_attempts": 5,
+      "channels": ["email", "sms"],
+      "support_level": "priority",
+      "requires_login": true,
+      "team_features": true
+    }
+  },
+  "outreach": {
+    "enabled": false,
+    "allowlist_only": true,
+    "max_daily_sends": 5,
+    "require_justification": true,
+    "allowed_domains": [],
+    "blocked_keywords": ["unsubscribe", "spam", "stop"]
+  },
+  "reliability": {
+    "retry_attempts": {
+      "free": 1,
+      "pro": 3,
+      "org": 5
+    },
+    "alert_timeout_hours": 24,
+    "source_health_threshold": 0.8
+  },
+  "support": {
+    "health_digest_day": 0,
+    "health_digest_hour": 9,
+    "error_digest_hour": 9,
+    "auto_tag_errors": true
+  },
+  "disclaimers": {
+    "free_tier": "This is a best-effort service. Alerts may be delayed or missed. Upgrade to Pro for guaranteed delivery."
+  }
+}

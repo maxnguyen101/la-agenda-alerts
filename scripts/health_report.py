@@ -12,6 +12,15 @@ import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
 
+# Load .env file
+env_path = Path(__file__).parent.parent / ".env"
+if env_path.exists():
+    with open(env_path) as f:
+        for line in f:
+            if '=' in line and not line.startswith('#'):
+                key, value = line.strip().split('=', 1)
+                os.environ[key] = value
+
 # Configuration
 DATA_DIR = Path(__file__).parent.parent / "data"
 LOGS_DIR = Path(__file__).parent.parent / "logs"

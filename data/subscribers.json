@@ -1,11 +1,20 @@
 {
   "subscribers": [
     {
-      "id": "operator_test",
-      "email": "${OPERATOR_EMAIL}",
+      "id": "main_operator",
+      "email": "howtopc2101@gmail.com",
+      "keywords": ["agenda", "meeting", "supervisor", "council", "housing", "zoning", "development", "transit", "transportation", "environment", "air quality", "sanitation"],
+      "sources": ["county_bos", "city_council", "plum_committee", "city_planning", "metro_board", "hcidla", "rent_stabilization", "hacola", "lacda", "ladot", "caltrans_d7", "aqmd", "la_sanitation"],
+      "frequency": "instant",
+      "status": "active",
+      "created_at": "2026-02-01T00:00:00Z"
+    },
+    {
+      "id": "backup_usc",
+      "email": "mnguyen9@usc.edu",
       "keywords": ["agenda", "meeting", "supervisor", "council"],
       "sources": ["county_bos", "city_council", "plum_committee"],
-      "frequency": "instant",
+      "frequency": "daily_digest",
       "status": "active",
       "created_at": "2026-02-01T00:00:00Z"
     }

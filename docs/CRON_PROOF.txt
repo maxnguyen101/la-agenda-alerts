@@ -1,20 +1,17 @@
 # LA Agenda Alerts - CRON_PROOF.txt
-# Cron jobs to be installed
+# Updated: 2026-02-01
 # 
-# TO INSTALL:
-# Run: crontab -e
-# Then paste the following lines:
+# Current crontab:
 
 # LA Agenda Alerts - Cron Jobs
-# Installed: 2026-02-01
+# Installed: Sun Feb 1 12:50:01 PST 2026
 
-# Run checks 3x daily at 8:00 AM, 1:00 PM, 6:00 PM
-0 8,13,18 * * * cd /Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts && ./scripts/run_once.sh >> /Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/cron.log 2>&1
+# Load environment and run checks 3x daily at 8:00 AM, 1:00 PM, 6:00 PM
+0 8,13,18 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && ./scripts/run_once.sh >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/cron.log" 2>&1
 
-# Daily health report at 7:00 AM
-0 7 * * * cd /Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts && python3 scripts/health_report.py >> /Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/cron.log 2>&1
+# Daily health report at 7:00 AM  
+0 7 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 scripts/health_report.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/cron.log" 2>&1
 
 # LA Agenda Alerts - End
 
-# After pasting, save and exit (Ctrl+O, Enter, Ctrl+X for nano)
-# To verify: crontab -l
+# To update manually, run: crontab -e

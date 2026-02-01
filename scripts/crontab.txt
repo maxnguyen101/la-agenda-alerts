@@ -1,0 +1,33 @@
+# LA Agenda Alerts - Complete Cron Schedule
+# Updated: 2026-02-01
+
+# ============================================
+# CORE SYSTEM - Agenda Monitoring
+# ============================================
+
+# Run agenda checks 3x daily at 8:00 AM, 1:00 PM, 6:00 PM
+0 8,13,18 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 src/fetch_sources.py && python3 src/parse_sources.py && python3 src/diff.py && python3 src/match.py && python3 src/notify_email.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/cron.log" 2>&1
+
+# Daily health report at 7:00 AM
+0 7 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 scripts/health_report.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/cron.log" 2>&1
+
+# ============================================
+# OUTREACH AUTOMATION
+# ============================================
+
+# Run outreach worker at 9am, 12pm, 3pm
+0 9,12,15 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 src/outreach_worker.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/outreach.log" 2>&1
+
+# Check for email replies at 9:05am, 12:05pm, 3:05pm
+5 9,12,15 * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && export $(grep -v '^#' .env | xargs) && python3 src/reply_handler.py >> "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts/logs/replies.log" 2>&1
+
+# ============================================
+# DASHBOARD MAINTENANCE
+# ============================================
+
+# Keep dashboard data fresh every 30 minutes
+*/30 * * * * cd "/Users/maxwellnguyen/.openclaw/workspace/la-agenda-alerts" && curl -s http://localhost:8080/api/stats > /dev/null 2>&1 || true
+
+# ============================================
+# END
+# ============================================

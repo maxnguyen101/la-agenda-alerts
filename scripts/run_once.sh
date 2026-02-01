@@ -9,6 +9,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 LOGS_DIR="$PROJECT_DIR/logs"
 
+# Load environment variables from .env file
+if [ -f "$PROJECT_DIR/.env" ]; then
+    export $(grep -v '^#' "$PROJECT_DIR/.env" | xargs)
+fi
+
 mkdir -p "$LOGS_DIR"
 
 RUN_LOG="$LOGS_DIR/run.log"
