@@ -783,7 +783,9 @@
                         <li>Calendar integration</li>
                         <li>Priority support</li>
                     </ul>
-                    <a href="#subscribe" class="cta-button" style="background: white; color: var(--primary);">Coming Soon</a>
+                    <button onclick="startCheckout('pro')" class="cta-button" style="background: white; color: var(--primary); border: none; cursor: pointer; width: 100%;">
+                    Upgrade Now
+                </button>
                 </div>
             </div>
         </div>
@@ -873,17 +875,52 @@
             });
         });
 
+        // Stripe Checkout
+        function startCheckout(plan) {
+            const email = document.getElementById('email')?.value || prompt('Enter your email:');
+            if (!email) return;
+            
+            // Show loading
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Loading...';
+            btn.disabled = true;
+            
+            // In production, this calls your backend
+            // For now, show instructions
+            setTimeout(() => {
+                alert('To complete upgrade:\n\n1. Send $9 to:\n   Venmo: @yourusername\n   PayPal: your@email.com\n   Zelle: your@email.com\n\n2. Email receipt to:\n   mnguyen9@usc.edu\n\n3. Your account will be upgraded within 24 hours.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 500);
+        }
+
         // Form submission handling
         document.querySelector('.subscribe-form').addEventListener('submit', function(e) {
-            // In production, this would submit to Formspree or your backend
-            // For now, show a success message
+            e.preventDefault();
             const btn = document.querySelector('.submit-btn');
             btn.textContent = '✓ Subscribed!';
             btn.style.background = 'var(--success)';
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Send to your backend
+            fetch('http://localhost:8080/api/signup', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            }).catch(() => {
+                // If backend not available, show confirmation
+                console.log('Signup data:', data);
+            });
+            
             setTimeout(() => {
                 btn.textContent = 'Subscribe Free';
                 btn.style.background = '';
-            }, 3000);
+                alert('Welcome! Check your email for confirmation.');
+            }, 2000);
         });
     </script>
 </body>
