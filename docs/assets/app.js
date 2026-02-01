@@ -120,15 +120,22 @@ function getFreeAlerts() {
     signupSection.scrollIntoView({ behavior: 'smooth' });
   } else {
     // Fallback to mailto
-    const subject = encodeURIComponent('Sign up for LA Agenda Alerts');
-    const body = encodeURIComponent(
-      'Hi,\n\nI\'d like to sign up for LA Agenda Alerts.\n\n' +
-      'Email: [your email]\n' +
-      'Keywords I\'m interested in: [e.g., rent stabilization, zoning, CEQA]\n\n' +
-      'Thanks!'
-    );
-    window.location.href = `mailto:contact@laagendaalerts.com?subject=${subject}&body=${body}`;
+    openSignupMailto();
   }
+}
+
+/**
+ * Open signup mailto
+ */
+function openSignupMailto() {
+  const subject = encodeURIComponent('Sign up for LA Agenda Alerts');
+  const body = encodeURIComponent(
+    'Hi,\n\nI\'d like to sign up for LA Agenda Alerts.\n\n' +
+    'Email: [your email]\n' +
+    'Keywords I\'m interested in: [e.g., rent stabilization, zoning, CEQA, Hollywood, DTLA]\n\n' +
+    'Thanks!'
+  );
+  window.location.href = `mailto:mnguyen9@usc.edu?subject=${subject}&body=${body}`;
 }
 
 /**
@@ -148,7 +155,39 @@ function startFree() {
   getFreeAlerts();
 }
 
+/**
+ * Open Payment Modal
+ */
+function openPaymentModal() {
+  const modal = document.getElementById('paymentModal');
+  if (modal) {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+/**
+ * Close Payment Modal
+ */
+function closePaymentModal() {
+  const modal = document.getElementById('paymentModal');
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+// Close modal on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closePaymentModal();
+  }
+});
+
 // Expose functions globally for onclick handlers
 window.getFreeAlerts = getFreeAlerts;
 window.viewSources = viewSources;
 window.startFree = startFree;
+window.openPaymentModal = openPaymentModal;
+window.closePaymentModal = closePaymentModal;
+window.openSignupMailto = openSignupMailto;
