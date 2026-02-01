@@ -3,235 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LA Agenda Alerts | Never Miss a Government Meeting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>LA Agenda Alerts - Never Miss a Government Meeting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
-            --accent: #ec4899;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #7c3aed;
             --success: #10b981;
+            --dark: #111827;
+            --gray: #6b7280;
+            --light: #f3f4f6;
+            --white: #ffffff;
         }
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            overflow-x: hidden;
         }
         
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 50%, #334155 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+        /* Navigation */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0.3;
-            animation: pulse 8s ease-in-out infinite;
-        }
-        
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-            opacity: 0.2;
-            animation: pulse 10s ease-in-out infinite reverse;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.2; }
-            50% { transform: scale(1.1); opacity: 0.3; }
-        }
-        
-        .hero-content {
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
         
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-        
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-text p {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-        
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(99, 102, 241, 0.2);
-            border: 1px solid var(--primary);
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-        }
-        
-        .hero-badge::before {
-            content: '●';
-            color: var(--success);
-            animation: blink 2s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.125rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
         }
         
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.5);
-        }
-        
-        .hero-visual {
-            position: relative;
-        }
-        
-        .phone-mockup {
-            background: white;
-            border-radius: 40px;
-            padding: 1rem;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.3);
-            transform: rotate(-5deg);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: rotate(-5deg) translateY(0); }
-            50% { transform: rotate(-5deg) translateY(-20px); }
-        }
-        
-        .phone-screen {
-            background: var(--dark);
-            border-radius: 32px;
-            padding: 2rem;
-            min-height: 500px;
-        }
-        
-        .notification {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 16px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            animation: slideIn 0.5s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .notification-header {
+        .nav-links {
             display: flex;
+            gap: 2rem;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.5rem;
         }
         
-        .notification-icon {
-            width: 32px;
-            height: 32px;
-            background: rgba(255,255,255,0.2);
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+        
+        .btn {
+            padding: 0.625rem 1.25rem;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--light);
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
             font-size: 1rem;
         }
         
-        .notification-title {
-            color: white;
-            font-weight: 600;
-            font-size: 0.875rem;
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
         }
         
-        .notification-body {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.8125rem;
-            line-height: 1.5;
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
         }
         
-        .notification-time {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+        
+        .hero .btn-primary:hover {
+            background: var(--light);
+        }
+        
+        .hero .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
         }
         
         /* Stats Bar */
         .stats-bar {
-            background: white;
-            padding: 3rem 2rem;
-            border-bottom: 1px solid #e2e8f0;
+            background: var(--white);
+            padding: 2rem;
+            border-bottom: 1px solid #e5e7eb;
         }
         
         .stats-container {
@@ -243,152 +161,107 @@
             text-align: center;
         }
         
-        .stat-item h3 {
+        .stat-number {
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--primary);
-            margin-bottom: 0.5rem;
         }
         
-        .stat-item p {
+        .stat-label {
             color: var(--gray);
+            font-size: 0.875rem;
             font-weight: 500;
         }
         
         /* How It Works */
         .how-it-works {
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
             background: var(--light);
         }
         
-        .section-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
         
-        .section-header {
+        .section-title {
             text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-        
-        .section-header p {
-            font-size: 1.25rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
         }
         
         .steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
+            gap: 2rem;
         }
         
         .step {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 24px;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .step:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
             font-weight: 700;
-            margin: 0 auto 1.5rem;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
         }
         
         .step h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
         
         .step p {
             color: var(--gray);
-            line-height: 1.7;
         }
         
-        /* Sources Section */
+        /* Sources */
         .sources {
-            padding: 6rem 2rem;
-            background: white;
+            padding: 5rem 2rem;
+            background: var(--white);
         }
         
         .sources-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
         }
         
         .source-card {
             background: var(--light);
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-        
-        .source-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
         }
         
         .source-card h4 {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
         }
         
         .source-card p {
             color: var(--gray);
-            font-size: 0.9375rem;
-        }
-        
-        .source-badge {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-top: 0.75rem;
+            font-size: 0.875rem;
         }
         
         /* Pricing */
         .pricing {
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
-            color: white;
+            padding: 5rem 2rem;
+            background: var(--light);
         }
         
         .pricing-grid {
@@ -396,74 +269,69 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             max-width: 800px;
-            margin: 3rem auto 0;
+            margin: 2rem auto 0;
         }
         
         .pricing-card {
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 2.5rem;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             text-align: center;
-            transition: all 0.3s ease;
         }
         
         .pricing-card.featured {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-color: transparent;
-            transform: scale(1.05);
+            border: 2px solid var(--primary);
+            transform: scale(1.02);
         }
         
         .pricing-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         
         .price {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 0.5rem;
+            color: var(--dark);
+            margin: 1rem 0;
         }
         
         .price span {
             font-size: 1rem;
+            color: var(--gray);
             font-weight: 400;
-            opacity: 0.7;
         }
         
         .pricing-card ul {
             list-style: none;
-            margin: 2rem 0;
             text-align: left;
+            margin: 2rem 0;
         }
         
         .pricing-card li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
         }
         
         .pricing-card li::before {
-            content: '✓';
+            content: "✓";
+            position: absolute;
+            left: 0;
             color: var(--success);
             font-weight: 700;
         }
         
-        /* Subscribe Section */
-        .subscribe {
-            padding: 6rem 2rem;
-            background: var(--light);
+        /* Signup Section */
+        .signup {
+            padding: 5rem 2rem;
+            background: var(--white);
         }
         
-        .subscribe-form {
-            max-width: 600px;
-            margin: 3rem auto 0;
-            background: white;
-            padding: 3rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        .signup-form {
+            max-width: 500px;
+            margin: 2rem auto 0;
         }
         
         .form-group {
@@ -472,7 +340,7 @@
         
         .form-group label {
             display: block;
-            font-weight: 600;
+            font-weight: 500;
             margin-bottom: 0.5rem;
             color: var(--dark);
         }
@@ -480,92 +348,130 @@
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            font-family: inherit;
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--primary);
+            ring: 2px solid var(--primary);
         }
         
-        .keywords-grid {
+        .checkbox-group {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 0.75rem;
-            margin-top: 0.75rem;
         }
         
-        .keyword-checkbox {
+        .checkbox-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.75rem;
             background: var(--light);
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         
-        .keyword-checkbox:hover {
-            background: #e2e8f0;
+        .checkbox-item:hover {
+            background: #e5e7eb;
         }
         
-        .keyword-checkbox input {
+        .checkbox-item input {
             width: auto;
         }
         
-        .submit-btn {
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.25rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.125rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
         
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .payment-options {
+            margin-top: 1.5rem;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .payment-option.venmo { background: #008CFF; }
+        .payment-option.paypal { background: #003087; }
+        .payment-option.zelle { background: #6B1E6B; }
+        
+        .payment-option:hover {
+            opacity: 0.9;
         }
         
         /* Footer */
         footer {
             background: var(--dark);
-            color: white;
+            color: var(--white);
             padding: 3rem 2rem;
             text-align: center;
         }
         
         footer p {
-            opacity: 0.6;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 968px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
+        footer a {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
             }
             
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-visual {
-                display: none;
-            }
-            
-            .steps,
-            .stats-container {
+            .steps {
                 grid-template-columns: 1fr;
             }
             
@@ -573,100 +479,71 @@
                 grid-template-columns: 1fr;
             }
             
-            .pricing-card.featured {
-                transform: none;
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-links {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">LA Agenda Alerts</a>
+            <div class="nav-links">
+                <a href="#how-it-works">How it Works</a>
+                <a href="#sources">Sources</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#signup" class="btn btn-primary">Get Alerts</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge">🚀 Now Monitoring 13 LA Government Sources</div>
-                <h1>Never Miss a Government Meeting That Matters to You</h1>
-                <p>LA Agenda Alerts monitors City Council, County Board, Planning Commissions, and more — sending you instant notifications when agendas change. Stay informed without spending hours checking government websites.</p>
-                <a href="#subscribe" class="cta-button">
-                    Get Free Alerts
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                </a>
-            </div>
-            <div class="hero-visual">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="notification">
-                            <div class="notification-header">
-                                <div class="notification-icon">📢</div>
-                                <div class="notification-title">LA City Council</div>
-                            </div>
-                            <div class="notification-body">
-                                New agenda posted: Housing Development Project on 5th Street
-                            </div>
-                            <div class="notification-time">2 minutes ago</div>
-                        </div>
-                        <div class="notification">
-                            <div class="notification-header">
-                                <div class="notification-icon">🏛️</div>
-                                <div class="notification-title">County Board</div>
-                            </div>
-                            <div class="notification-body">
-                                Meeting scheduled: Transportation Infrastructure Update
-                            </div>
-                            <div class="notification-time">15 minutes ago</div>
-                        </div>
-                        <div class="notification">
-                            <div class="notification-header">
-                                <div class="notification-icon">🏗️</div>
-                                <div class="notification-title">Planning Commission</div>
-                            </div>
-                            <div class="notification-body">
-                                Zoning change proposed: Mixed-use development in your area
-                            </div>
-                            <div class="notification-time">1 hour ago</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h1>Never Miss an LA Government Agenda Change</h1>
+        <p>Get instant email alerts when City Council, County Board, Planning Commission, and 10+ agencies update agendas. No more manual checking.</p>
+        <div class="hero-buttons">
+            <a href="#signup" class="btn btn-primary btn-large">Get Free Alerts</a>
+            <a href="#pricing" class="btn btn-secondary btn-large">View Pricing</a>
         </div>
     </section>
 
-    <!-- Stats Bar -->
+    <!-- Stats -->
     <section class="stats-bar">
         <div class="stats-container">
-            <div class="stat-item">
-                <h3>13</h3>
-                <p>Government Sources</p>
+            <div>
+                <div class="stat-number">13</div>
+                <div class="stat-label">Government Sources</div>
             </div>
-            <div class="stat-item">
-                <h3>3x</h3>
-                <p>Daily Checks</p>
+            <div>
+                <div class="stat-number">3x</div>
+                <div class="stat-label">Daily Checks</div>
             </div>
-            <div class="stat-item">
-                <h3>Instant</h3>
-                <p>Notifications</p>
+            <div>
+                <div class="stat-number">Instant</div>
+                <div class="stat-label">Notifications</div>
             </div>
-            <div class="stat-item">
-                <h3>100%</h3>
-                <p>Free During Beta</p>
+            <div>
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free During Beta</div>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>How It Works</h2>
-                <p>Get started in 60 seconds. No technical knowledge required.</p>
-            </div>
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Subscribe</h3>
-                    <p>Enter your email and select which topics you care about — housing, transportation, environment, or everything.</p>
+                    <p>Enter your email and select topics you care about - housing, transportation, environment, or everything.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -683,84 +560,66 @@
     </section>
 
     <!-- Sources -->
-    <section class="sources">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>What We Monitor</h2>
-                <p>Comprehensive coverage of LA government meetings and announcements.</p>
-            </div>
+    <section class="sources" id="sources">
+        <div class="container">
+            <h2 class="section-title">What We Monitor</h2>
             <div class="sources-grid">
                 <div class="source-card">
-                    <h4>🏛️ LA City Council</h4>
+                    <h4>LA City Council</h4>
                     <p>City legislation, ordinances, and council meetings</p>
-                    <span class="source-badge">Agenda</span>
                 </div>
                 <div class="source-card">
-                    <h4>🏗️ PLUM Committee</h4>
+                    <h4>PLUM Committee</h4>
                     <p>Planning and Land Use Management decisions</p>
-                    <span class="source-badge">Agenda</span>
                 </div>
                 <div class="source-card">
-                    <h4>📋 County Board of Supervisors</h4>
+                    <h4>County Board of Supervisors</h4>
                     <p>LA County government and policy meetings</p>
-                    <span class="source-badge">Agenda</span>
                 </div>
                 <div class="source-card">
-                    <h4>🏘️ City Planning Commission</h4>
+                    <h4>City Planning Commission</h4>
                     <p>Development projects and zoning hearings</p>
-                    <span class="source-badge">Agenda</span>
                 </div>
                 <div class="source-card">
-                    <h4>🚇 LA Metro Board</h4>
+                    <h4>LA Metro Board</h4>
                     <p>Public transit and transportation decisions</p>
-                    <span class="source-badge">Agenda</span>
                 </div>
                 <div class="source-card">
-                    <h4>🏠 Housing Department</h4>
-                    <p>HCIDLA housing programs and initiatives</p>
-                    <span class="source-badge">News</span>
+                    <h4>LA Housing Department</h4>
+                    <p>Housing programs and initiatives</p>
                 </div>
                 <div class="source-card">
-                    <h4>💰 Rent Stabilization Board</h4>
+                    <h4>Rent Stabilization Board</h4>
                     <p>Rent control and tenant protection meetings</p>
-                    <span class="source-badge">Agenda</span>
                 </div>
                 <div class="source-card">
-                    <h4>🏢 Housing Authority</h4>
-                    <p>HACoLA affordable housing programs</p>
-                    <span class="source-badge">Agenda</span>
+                    <h4>LA Housing Authority</h4>
+                    <p>Affordable housing programs</p>
                 </div>
                 <div class="source-card">
-                    <h4>📊 County Development Authority</h4>
-                    <p>LACDA community development programs</p>
-                    <span class="source-badge">Agenda</span>
+                    <h4>County Development Authority</h4>
+                    <p>Community development programs</p>
                 </div>
                 <div class="source-card">
-                    <h4>🚗 LA DOT</h4>
-                    <p>Transportation Department updates</p>
-                    <span class="source-badge">News</span>
+                    <h4>LA Department of Transportation</h4>
+                    <p>Transportation updates and bike lanes</p>
                 </div>
                 <div class="source-card">
-                    <h4>🛣️ Caltrans District 7</h4>
+                    <h4>Caltrans District 7</h4>
                     <p>State highway and freeway projects</p>
-                    <span class="source-badge">News</span>
                 </div>
                 <div class="source-card">
-                    <h4>🌬️ Air Quality Management</h4>
-                    <p>AQMD environmental regulations</p>
-                    <span class="source-badge">Agenda</span>
+                    <h4>Air Quality Management</h4>
+                    <p>Environmental regulations and permits</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing -->
-    <section class="pricing">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Simple Pricing</h2>
-                <p>Free during beta. Affordable when we launch.</p>
-            </div>
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple Pricing</h2>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Free</h3>
@@ -771,11 +630,11 @@
                         <li>Basic keyword filtering</li>
                         <li>Daily digest option</li>
                     </ul>
-                    <a href="#subscribe" class="cta-button">Get Started</a>
+                    <a href="#signup" class="btn btn-secondary" style="width: 100%;">Get Started Free</a>
                 </div>
                 <div class="pricing-card featured">
                     <h3>Pro</h3>
-                    <div class="price">$5<span>/month</span></div>
+                    <div class="price">$9<span>/month</span></div>
                     <ul>
                         <li>Everything in Free</li>
                         <li>SMS notifications</li>
@@ -783,73 +642,50 @@
                         <li>Calendar integration</li>
                         <li>Priority support</li>
                     </ul>
-                    <button onclick="startCheckout('pro')" class="cta-button" style="background: white; color: var(--primary); border: none; cursor: pointer; width: 100%;">
-                    Upgrade Now
-                </button>
+                    <button onclick="openPaymentModal('pro')" class="btn btn-primary" style="width: 100%;">Upgrade to Pro</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Subscribe -->
-    <section class="subscribe" id="subscribe">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Get Started Now</h2>
-                <p>Join the beta — it's completely free.</p>
-            </div>
-            <form class="subscribe-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <!-- Signup -->
+    <section class="signup" id="signup">
+        <div class="container">
+            <h2 class="section-title">Get Started Now</h2>
+            <form class="signup-form" id="signupForm">
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="you@example.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="name">Your Name</label>
+                    <label for="name">Your Name (optional)</label>
                     <input type="text" id="name" name="name" placeholder="John Doe">
                 </div>
                 
                 <div class="form-group">
                     <label>Topics You're Interested In</label>
-                    <div class="keywords-grid">
-                        <label class="keyword-checkbox">
-                            <input type="checkbox" name="topics" value="housing">
-                            <span>🏠 Housing</span>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="topics" value="housing" checked>
+                            <span>Housing</span>
                         </label>
-                        <label class="keyword-checkbox">
+                        <label class="checkbox-item">
                             <input type="checkbox" name="topics" value="transportation">
-                            <span>🚗 Transportation</span>
+                            <span>Transportation</span>
                         </label>
-                        <label class="keyword-checkbox">
+                        <label class="checkbox-item">
                             <input type="checkbox" name="topics" value="environment">
-                            <span>🌿 Environment</span>
+                            <span>Environment</span>
                         </label>
-                        <label class="keyword-checkbox">
+                        <label class="checkbox-item">
                             <input type="checkbox" name="topics" value="development">
-                            <span>🏗️ Development</span>
-                        </label>
-                        <label class="keyword-checkbox">
-                            <input type="checkbox" name="topics" value="zoning">
-                            <span>📋 Zoning</span>
-                        </label>
-                        <label class="keyword-checkbox">
-                            <input type="checkbox" name="topics" value="all" checked>
-                            <span>✨ All Topics</span>
+                            <span>Development</span>
                         </label>
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="frequency">Notification Frequency</label>
-                    <select id="frequency" name="frequency">
-                        <option value="instant">Instant (as soon as it happens)</option>
-                        <option value="digest">Daily Digest (once per day)</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="submit-btn">
-                    Subscribe Free
-                </button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Subscribe Free</button>
                 
                 <p style="text-align: center; margin-top: 1rem; color: var(--gray); font-size: 0.875rem;">
                     No spam. Unsubscribe anytime. We respect your privacy.
@@ -858,14 +694,53 @@
         </div>
     </section>
 
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2>Upgrade to Pro</h2>
+            <p>Complete your upgrade for <strong>$9/month</strong></p>
+            
+            <div class="payment-options">
+                <a href="https://venmo.com/u/la_agenda_alerts" target="_blank" class="payment-option venmo">
+                    <span style="font-size: 1.5rem;">💸</span>
+                    <div>
+                        <div>Pay with Venmo</div>
+                        <div style="font-size: 0.75rem; opacity: 0.8;">@la_agenda_alerts</div>
+                    </div>
+                </a>
+                
+                <a href="https://paypal.me/mnguyen9" target="_blank" class="payment-option paypal">
+                    <span style="font-size: 1.5rem;">🅿️</span>
+                    <div>
+                        <div>Pay with PayPal</div>
+                        <div style="font-size: 0.75rem; opacity: 0.8;">mnguyen9@usc.edu</div>
+                    </div>
+                </a>
+                
+                <div class="payment-option zelle">
+                    <span style="font-size: 1.5rem;">💳</span>
+                    <div>
+                        <div>Pay with Zelle</div>
+                        <div style="font-size: 0.75rem; opacity: 0.8;">mnguyen9@usc.edu</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-top: 1rem; font-size: 0.875rem;">
+                <strong>After paying:</strong> Email your receipt to <a href="mailto:mnguyen9@usc.edu">mnguyen9@usc.edu</a> and your account will be upgraded within 24 hours.
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 LA Agenda Alerts. Made for Angelenos who care about their city.</p>
-        <p style="margin-top: 0.5rem;">Questions? Contact: <a href="mailto:mnguyen9@usc.edu" style="color: var(--primary);">mnguyen9@usc.edu</a></p>
+        <p>Questions? <a href="mailto:mnguyen9@usc.edu">mnguyen9@usc.edu</a></p>
     </footer>
 
     <script>
-        // Smooth scroll for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -875,115 +750,32 @@
             });
         });
 
-        // Payment Modal
-        function startCheckout(plan) {
-            const email = document.getElementById('email')?.value || prompt('Enter your email:');
-            if (!email) return;
-            
-            const price = plan === 'pro' ? 9 : 39;
-            const planName = plan === 'pro' ? 'Pro' : 'Organization';
-            
-            // Create modal
-            const modal = document.createElement('div');
-            modal.id = 'payment-modal';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                padding: 20px;
-            `;
-            
-            modal.innerHTML = `
-                <div style="background: white; border-radius: 24px; max-width: 500px; width: 100%; padding: 2rem; position: relative;">
-                    <button onclick="closeModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
-                    
-                    <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--dark);">Upgrade to ${planName}</h2>
-                    <p style="color: #666; margin-bottom: 1.5rem;">Complete your upgrade for ${email}</p>
-                    
-                    <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem;">
-                        <div style="font-size: 2.5rem; font-weight: 800;">$${price}<span style="font-size: 1rem; opacity: 0.8;">/month</span></div>
-                    </div>
-                    
-                    <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--dark);">Choose Payment Method:</h3>
-                    
-                    <a href="https://venmo.com/u/la_agenda_alerts" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #008CFF; color: white; border-radius: 12px; text-decoration: none; margin-bottom: 0.75rem; font-weight: 600;">
-                        <span style="font-size: 1.5rem;">💸</span>
-                        <div>
-                            <div>Pay with Venmo</div>
-                            <div style="font-size: 0.75rem; opacity: 0.8;">@la_agenda_alerts</div>
-                        </div>
-                    </a>
-                    
-                    <a href="https://paypal.me/mnguyen9" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #003087; color: white; border-radius: 12px; text-decoration: none; margin-bottom: 0.75rem; font-weight: 600;">
-                        <span style="font-size: 1.5rem;">🅿️</span>
-                        <div>
-                            <div>Pay with PayPal</div>
-                            <div style="font-size: 0.75rem; opacity: 0.8;">mnguyen9@usc.edu</div>
-                        </div>
-                    </a>
-                    
-                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #6B1E6B; color: white; border-radius: 12px; margin-bottom: 1.5rem; font-weight: 600;">
-                        <span style="font-size: 1.5rem;">💳</span>
-                        <div>
-                            <div>Pay with Zelle</div>
-                            <div style="font-size: 0.75rem; opacity: 0.8;">mnguyen9@usc.edu</div>
-                        </div>
-                    </div>
-                    
-                    <div style="background: #f0f9ff; border-left: 4px solid #008CFF; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                        <strong>After paying:</strong><br>
-                        Email your receipt to <a href="mailto:mnguyen9@usc.edu" style="color: #008CFF;">mnguyen9@usc.edu</a><br>
-                        Your account will be upgraded within 24 hours.
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Close on outside click
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) closeModal();
-            });
+        // Modal functions
+        function openPaymentModal(plan) {
+            document.getElementById('paymentModal').classList.add('active');
         }
         
         function closeModal() {
-            const modal = document.getElementById('payment-modal');
-            if (modal) modal.remove();
+            document.getElementById('paymentModal').classList.remove('active');
         }
-
-        // Form submission handling
-        document.querySelector('.subscribe-form').addEventListener('submit', function(e) {
+        
+        // Close modal on outside click
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.querySelector('.submit-btn');
-            btn.textContent = '✓ Subscribed!';
+            const btn = this.querySelector('button[type="submit"]');
+            btn.textContent = 'Subscribed!';
             btn.style.background = 'var(--success)';
             
-            // Collect form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Send to your backend
-            fetch('http://localhost:8080/api/signup', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            }).catch(() => {
-                // If backend not available, show confirmation
-                console.log('Signup data:', data);
-            });
-            
             setTimeout(() => {
+                alert('Welcome! Check your email for confirmation.');
                 btn.textContent = 'Subscribe Free';
                 btn.style.background = '';
-                alert('Welcome! Check your email for confirmation.');
-            }, 2000);
+            }, 1000);
         });
     </script>
 </body>
