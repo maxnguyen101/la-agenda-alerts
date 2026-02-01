@@ -875,24 +875,87 @@
             });
         });
 
-        // Stripe Checkout
+        // Payment Modal
         function startCheckout(plan) {
             const email = document.getElementById('email')?.value || prompt('Enter your email:');
             if (!email) return;
             
-            // Show loading
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = 'Loading...';
-            btn.disabled = true;
+            const price = plan === 'pro' ? 9 : 39;
+            const planName = plan === 'pro' ? 'Pro' : 'Organization';
             
-            // In production, this calls your backend
-            // For now, show instructions
-            setTimeout(() => {
-                alert('To complete upgrade:\n\n1. Send $9 to:\n   Venmo: @yourusername\n   PayPal: your@email.com\n   Zelle: your@email.com\n\n2. Email receipt to:\n   mnguyen9@usc.edu\n\n3. Your account will be upgraded within 24 hours.');
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }, 500);
+            // Create modal
+            const modal = document.createElement('div');
+            modal.id = 'payment-modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 24px; max-width: 500px; width: 100%; padding: 2rem; position: relative;">
+                    <button onclick="closeModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    
+                    <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--dark);">Upgrade to ${planName}</h2>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Complete your upgrade for ${email}</p>
+                    
+                    <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 2.5rem; font-weight: 800;">$${price}<span style="font-size: 1rem; opacity: 0.8;">/month</span></div>
+                    </div>
+                    
+                    <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--dark);">Choose Payment Method:</h3>
+                    
+                    <a href="https://venmo.com/u/la_agenda_alerts" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #008CFF; color: white; border-radius: 12px; text-decoration: none; margin-bottom: 0.75rem; font-weight: 600;">
+                        <span style="font-size: 1.5rem;">💸</span>
+                        <div>
+                            <div>Pay with Venmo</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8;">@la_agenda_alerts</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://paypal.me/mnguyen9" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #003087; color: white; border-radius: 12px; text-decoration: none; margin-bottom: 0.75rem; font-weight: 600;">
+                        <span style="font-size: 1.5rem;">🅿️</span>
+                        <div>
+                            <div>Pay with PayPal</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8;">mnguyen9@usc.edu</div>
+                        </div>
+                    </a>
+                    
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #6B1E6B; color: white; border-radius: 12px; margin-bottom: 1.5rem; font-weight: 600;">
+                        <span style="font-size: 1.5rem;">💳</span>
+                        <div>
+                            <div>Pay with Zelle</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8;">mnguyen9@usc.edu</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f0f9ff; border-left: 4px solid #008CFF; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <strong>After paying:</strong><br>
+                        Email your receipt to <a href="mailto:mnguyen9@usc.edu" style="color: #008CFF;">mnguyen9@usc.edu</a><br>
+                        Your account will be upgraded within 24 hours.
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close on outside click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal();
+            });
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('payment-modal');
+            if (modal) modal.remove();
         }
 
         // Form submission handling
