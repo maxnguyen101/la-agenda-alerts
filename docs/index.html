@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LA Agenda Alerts — Never Miss a Government Agenda Change</title>
+  <meta name="description" content="Get instant alerts when LA City Council, County Board, and 11+ agencies update agendas. Built for advocates, planners, and journalists.">
+  <meta name="keywords" content="LA government, agenda alerts, city council, county board, urban planning, Los Angeles">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="LA Agenda Alerts">
+  <meta property="og:description" content="Never miss an LA government agenda change. We monitor 13 sources and alert you instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://laagendaalerts.com">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LA Agenda Alerts">
+  <meta name="twitter:description" content="Never miss an LA government agenda change.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A2%3C/text%3E%3C/svg%3E">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" aria-label="LA Agenda Alerts Home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        LA Agenda Alerts
+      </a>
+      <div class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#how-it-works">How it Works</a>
+        <a href="#sources">Sources</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Never miss an LA government agenda change.</h1>
+        <p class="hero-subtitle">We monitor 13 LA sources 3× daily and alert you when agendas or packets change—based on your keywords.</p>
+        
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-large" onclick="getFreeAlerts()">
+            Get Free Alerts
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+          <button class="btn btn-secondary btn-large" onclick="viewSources()">View Sources</button>
+        </div>
+        
+        <p class="hero-trust">Built for advocates, planners, and journalists in Los Angeles.</p>
+      </div>
+      
+      <!-- Demo Alert -->
+      <div class="demo-alert">
+        <div class="demo-alert-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7377" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="demo-alert-title">LA Agenda Alert</span>
+        </div>
+        <div class="demo-alert-subject">LA City Council — New Agenda: Housing Development on 5th St</div>
+        <div class="demo-alert-body">
+          The City Council agenda has been updated with a new housing development proposal for 850 units. Meeting scheduled for Tuesday 10am.
+        </div>
+        <div class="demo-alert-meta">Matched keywords: "housing", "5th St" — 2 minutes ago</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problems" id="problem">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why it matters</h2>
+        <p>LA government information is scattered, changes quietly, and costs you hours to track manually.</p>
+      </div>
+      
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3>Agendas change quietly</h3>
+          <p>New items are added to agendas without announcement. By the time you notice, the meeting may have passed.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3>Info is scattered</h3>
+          <p>City Council, County Board, Planning Commission, Housing Authority—13 different websites to check.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3>Hours wasted checking</h3>
+          <p>Most visits find nothing new. But miss one check, and you miss an important development in your neighborhood.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>How it works</h2>
+        <p>Our system checks 13 LA government sources 3× daily and sends instant alerts when agendas change.</p>
+      </div>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Fetch</h3>
+            <p>Download HTML and PDFs from all 13 sources with retries and caching.</p>
+            <div class="step-times">
+              <span class="time-badge">8am PT</span>
+              <span class="time-badge">1pm PT</span>
+              <span class="time-badge">6pm PT</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Parse</h3>
+            <p>Extract clean text from agendas and packets, handling both HTML and PDF formats.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Diff</h3>
+            <p>Compare against the last stored version to detect meaningful changes (ignoring timestamps and noise).</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Match</h3>
+            <p>Check changes against your keywords—phrases, negative keywords, case-insensitive.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Notify</h3>
+            <p>Send email alerts instantly (SMS for Pro users) with direct links to agendas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources Section -->
+  <section class="sources-section" id="sources">
+    <div class="container">
+      <div class="section-header">
+        <h2>Sources we monitor</h2>
+        <p>13 LA government agencies, checked 3× daily.</p>
+      </div>
+      
+      <div class="source-group">
+        <h3>City of Los Angeles</h3>
+        <div class="source-list">
+          <div class="source-item">LA City Council</div>
+          <div class="source-item">PLUM Committee</div>
+          <div class="source-item">City Planning Commission</div>
+        </div>
+      </div>
+      
+      <div class="source-group">
+        <h3>LA County</h3>
+        <div class="source-list">
+          <div class="source-item">Board of Supervisors</div>
+          <div class="source-item">County Development Authority</div>
+        </div>
+      </div>
+      
+      <div class="source-group">
+        <h3>Transit & State</h3>
+        <div class="source-list">
+          <div class="source-item">LA Metro Board</div>
+          <div class="source-item">LA DOT</div>
+          <div class="source-item">Caltrans District 7</div>
+        </div>
+      </div>
+      
+      <div class="source-group">
+        <h3>Housing & Environment</h3>
+        <div class="source-list">
+          <div class="source-item">Housing Department</div>
+          <div class="source-item">Rent Stabilization Board</div>
+          <div class="source-item">Housing Authority</div>
+          <div class="source-item">Air Quality Management</div>
+          <div class="source-item">LA Sanitation</div>
+        </div>
+      </div>
+      
+      <p class="source-suggest">
+        <a href="mailto:contact@laagendaalerts.com?subject=Suggest a source">Suggest a source</a> — we're always adding more.
+      </p>
+    </div>
+  </section>
+
+  <!-- Keywords Section -->
+  <section id="keywords">
+    <div class="container">
+      <div class="section-header">
+        <h2>Keyword filtering</h2>
+        <p>Only get alerts for topics you care about. No spam.</p>
+      </div>
+      
+      <div class="keyword-demo">
+        <div class="keyword-features">
+          <div class="keyword-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Phrases like "rent stabilization"</span>
+          </div>
+          <div class="keyword-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Case-insensitive matching</span>
+          </div>
+          <div class="keyword-feature">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Negative keywords: -parking</span>
+          </div>
+        </div>
+        
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-md);">Example keywords:</p>
+        <div class="keyword-examples">
+          <span class="pill">rent stabilization</span>
+          <span class="pill">CEQA</span>
+          <span class="pill">zoning</span>
+          <span class="pill">Hollywood</span>
+          <span class="pill">DTLA</span>
+          <span class="pill">eviction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Simple pricing</h2>
+        <p>Start free. Upgrade when you need more.</p>
+      </div>
+      
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="pricing-price">
+            <span class="price">$0</span>
+            <span class="period">/month</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Email alerts
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              All 13 sources
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Basic keyword filtering
+            </li>
+          </ul>
+          <button class="btn btn-secondary" onclick="getFreeAlerts()" style="width: 100%;">Start Free</button>
+        </div>
+        
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <h3>Pro</h3>
+          <div class="pricing-price">
+            <span class="price">$5</span>
+            <span class="period">/month</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Everything in Free
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              SMS alerts
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Calendar .ics files
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Advanced filters
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Priority support
+            </li>
+          </ul>
+          <button class="btn btn-primary" onclick="getFreeAlerts()" style="width: 100%;">Get Pro</button>
+        </div>
+        
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="pricing-price">
+            <span class="price">Custom</span>
+          </div>
+          <ul class="pricing-features">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              API access
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Multi-user accounts
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              White-label options
+            </li>
+          </ul>
+          <a href="mailto:contact@laagendaalerts.com?subject=Enterprise Inquiry" class="btn btn-secondary" style="width: 100%; display: inline-flex;">Contact Us</a>
+        </div>
+      </div>
+      
+      <div class="pricing-cta">
+        <button class="btn btn-primary btn-large" onclick="startFree()">Start Free</button>
+        <p style="margin-top: var(--space-md); color: var(--color-text-muted); font-size: var(--font-size-sm);">No credit card required. Cancel anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently asked questions</h2>
+      </div>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How fast are alerts?
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>We check all 13 sources at 8am, 1pm, and 6pm PT. If a change is detected, you'll receive an email alert within minutes. Pro users also get SMS alerts for critical updates.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do you read PDF agendas?
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. We extract text from both HTML pages and PDF agenda packets. For scanned PDFs that can't be read automatically, we flag them for manual review.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What if a website changes?
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Our system is built to be resilient. If a source website changes structure, we have fallback parsing methods. If a site goes down temporarily, we retry with exponential backoff and alert you in the health report.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Can I unsubscribe?
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, anytime. Every alert email includes a one-click unsubscribe link. You can also email us at any time to cancel or modify your subscription.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do you sell my data?
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. We never sell or share your email address, keywords, or alert history with third parties. Your data is used only to send you the alerts you requested.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="cta-section" id="signup">
+    <div class="container">
+      <h2>Never miss an LA government agenda change.</h2>
+      <p>Join advocates, planners, and journalists who stay informed.</p>
+      <button class="btn btn-primary btn-large" onclick="getFreeAlerts()">Get Free Alerts</button>
+      <p class="privacy-line">No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#sources">Sources</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:contact@laagendaalerts.com">Contact</a>
+        </div>
+        <p class="footer-copy">© 2026 LA Agenda Alerts. Made for Angelenos.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/app.js"></script>
+</body>
+</html>

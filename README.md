@@ -267,6 +267,56 @@ While we strive for 100% reliability, this is a best-effort service. Free tier u
 
 ---
 
+## 🌐 GitHub Pages Setup
+
+The marketing site is in `/docs` and deploys automatically via GitHub Pages.
+
+### Enable GitHub Pages
+
+1. Go to your repository on GitHub
+2. Click **Settings** → **Pages** (in left sidebar)
+3. Under **Build and deployment**:
+   - Source: **Deploy from a branch**
+   - Branch: **main** / **docs** folder
+4. Click **Save**
+5. Wait 2-5 minutes for deployment
+6. Your site will be at: `https://yourusername.github.io/la-agenda-alerts`
+
+### Customize the Site
+
+**Edit contact email:**
+- File: `/docs/index.html`
+- Find: `contact@laagendaalerts.com`
+- Replace with your actual email
+
+**Edit pricing:**
+- File: `/docs/index.html`
+- Find the Pricing section (around line 350)
+- Update prices in the pricing cards
+
+**Edit sources list:**
+- File: `/docs/index.html`
+- Find the Sources section (around line 200)
+- Add/remove source items
+
+**Edit colors/branding:**
+- File: `/docs/assets/styles.css`
+- Modify CSS variables in `:root`
+- Primary color: `--color-primary: #0d7377`
+
+### File Structure
+
+```
+docs/
+├── index.html          # Main landing page
+├── 404.html           # 404 error page
+└── assets/
+    ├── styles.css     # All styles (no build step)
+    └── app.js         # Smooth scroll + FAQ accordion
+```
+
+---
+
 ## 📞 Support
 
 - **Email:** mnguyen9@usc.edu
