@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "id": "city_council",
+      "name": "LA City Council",
+      "type": "agenda",
+      "urls": [
+        "https://clerk.lacity.gov/"
+      ],
+      "cadence": "Weekly on Tuesdays, Fridays",
+      "description": "Main City Council agenda and council file system"
+    },
+    {
+      "id": "plum_committee",
+      "name": "PLUM Committee",
+      "type": "agenda",
+      "urls": [
+        "https://clerk.lacity.gov/council-and-committee-meetings"
+      ],
+      "cadence": "Weekly on Tuesdays",
+      "description": "Planning and Land Use Management Committee agenda"
+    },
+    {
+      "id": "county_bos",
+      "name": "LA County Board of Supervisors",
+      "type": "agenda",
+      "urls": [
+        "https://bos.lacounty.gov/"
+      ],
+      "cadence": "Weekly on Tuesdays",
+      "description": "LA County Board of Supervisors agenda"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+LA Agenda Alerts - Progress Update 2026-02-01 03:15
+
+COMPLETED:
+- Task 1: Project setup (folders, README)
+- Task 2: Source definitions (3 sources)
+- Task 3: Fetch worker (downloads HTML/PDFs, retry logic)
+- Task 4: Parse worker (extracts agenda items)
+- Task 5: Diff worker (change detection with dedupe)
+- Task 6: Subscribers + matching
+- Task 7: Email notifications (Agent Mail API)
+
+PIPELINE STATUS:
+- run_once.sh executes full pipeline
+- Successfully fetches County BOS PDFs
+- Parses, diffs, matches, and queues notifications
+- Email sender ready (needs AGENT_MAIL_API_KEY)
+
+REMAINING:
+- Task 8: Operator paging (iMessage + email)
+- Task 9: One-command runner (done - run_once.sh)
+- Task 10: Daily health report
+- Task 11: Cron installation
+- Task 12: Web landing page
+- Task 13: Tests
+- Task 14: Ops documentation
+
+RELEASE GATES:
+- G1: End-to-end pipeline - IN PROGRESS (core working)
+- G2: Real email notifications - NEEDS API KEY
+- G3: Dedupe - IMPLEMENTED
+- G4-G7: Not started

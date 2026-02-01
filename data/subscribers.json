@@ -1,0 +1,13 @@
+{
+  "subscribers": [
+    {
+      "id": "operator_test",
+      "email": "${OPERATOR_EMAIL}",
+      "keywords": ["agenda", "meeting", "supervisor", "council"],
+      "sources": ["county_bos", "city_council", "plum_committee"],
+      "frequency": "instant",
+      "status": "active",
+      "created_at": "2026-02-01T00:00:00Z"
+    }
+  ]
+}
