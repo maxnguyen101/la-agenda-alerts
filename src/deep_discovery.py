@@ -331,13 +331,22 @@ class DeepAgendaDiscovery:
     # Source-specific patterns
     SOURCE_PATTERNS = {
         'metro_board': {
-            'allowlist': ['/agenda', '/agendas', '/meeting-materials', '/packet', 
-                         '/documents/', '/event/', 'agenda.pdf', 'packet.pdf'],
-            'blocklist': ['/events/', '/calendar', '/board-members', '/committees', 
-                         'fy26-committee-board-calendar', 'calendar.pdf'],
-            'depth_preference': 'deep'  # Prefer deeper links
+            'mode': 'meeting_list',  # Special mode for Metro
+            'landing': 'https://boardagendas.metro.net/',
+            'fallback': 'https://metro.legistar.com/MainBody.aspx',
+            'allowlist': ['/event/', 'agenda', 'packet', '.pdf', '/events/'],
+            'blocklist': ['/calendar', 'fy26-committee-board-calendar', 'calendar.pdf', 
+                         '/board-members', '/committees', '/minutes/'],
+            'scoring': {
+                'agenda_pdf': 40,      # +40 if href contains "agenda" and endswith ".pdf"
+                'agenda_packet': 30,   # +30 if anchor text contains "agenda packet"
+                'packet_materials': 20, # +20 if href contains "packet" or "meeting materials"
+                'calendar': -40         # -40 if href filename contains "calendar"
+            }
         },
         'county_bos': {
+            'mode': 'standard',
+            'landing': 'https://bos.lacounty.gov/',
             'allowlist': ['/agenda', '/agendas', '/board-meeting', '/meeting-materials',
                          'board agenda', 'meeting agenda', '.pdf'],
             'blocklist': ['/rules', '/district', '/map', '/about', '/contact',
@@ -345,23 +354,34 @@ class DeepAgendaDiscovery:
             'depth_preference': 'deep'
         },
         'city_council': {
+            'mode': 'api_first',  # Try API first, then crawl
+            'landing': 'https://clerk.lacity.gov/',
+            'api_patterns': ['api', 'json', 'events', 'meeting', 'agenda', 'attachments'],
             'allowlist': ['/agenda', '/agendas', '/council-agenda', '/meeting-agenda',
                          '/council-file', '/cf-', 'agenda.pdf', 'council-agenda'],
             'blocklist': ['/search', '/category', '/tag', '/author', '/page/',
-                         'meeting-agendas'],  # This is the index page
+                         '/subscribe'],
             'depth_preference': 'deep'
         },
-        'hcidla': {
-            'allowlist': ['/agenda', '/commission', '/meeting', '/rsa', 
-                         'commission-agenda', 'rsa-agenda'],
-            'blocklist': ['/news', '/events', '/about', '/contact'],
-            'depth_preference': 'deep'
+        'lahd_commissions': {
+            'mode': 'html_agenda_list',  # This is already a structured agenda list
+            'landing': 'https://ens.lacity.org/lahd/ens_lahd_commagd.htm',
+            'allowlist': ['.pdf', 'agenda', 'commission', 'meeting', 
+                         '/wp-content/uploads/', 'rac', 'csac', 'hhs'],  # Commission abbreviations
+            'blocklist': ['/news', '/about', '/contact', 'calendar'],
+            'depth_preference': 'shallow'  # Don't need deep recursion
         },
-        'rent_stabilization': {
-            'allowlist': ['/agenda', '/commission', '/meeting', '/rsa',
-                         'commission-agenda', 'rsa-agenda'],
-            'blocklist': ['/news', '/events', '/about', '/contact'],
-            'depth_preference': 'deep'
+        'lahd_rac': {
+            'mode': 'pdf_focused',  # RAC agendas are PDF-focused
+            'landing': 'https://housing.lacity.gov/category/community-resources/commissions-advisory-boards',
+            'allowlist': ['rac', 'agenda', '.pdf', '/wp-content/uploads/',
+                         'rent adjustment', 'commission'],
+            'blocklist': ['/news', '/about', '/contact', 'calendar', 'minutes'],
+            'scoring': {
+                'rac_agenda_pdf': 50,   # High priority for RAC agenda PDFs
+                'agenda_pdf': 40,
+                'rac_keyword': 25       # Boost for "RAC" mentions
+            }
         }
     }
     
@@ -474,6 +494,25 @@ class DeepAgendaDiscovery:
         links.sort(key=lambda x: x['score'], reverse=True)
         return links
     
+    def scan_for_api_endpoints(self, html: str) -> List[str]:
+        """Scan HTML for potential API endpoints."""
+        endpoints = []
+        
+        # Look for API patterns in script tags, data attributes, etc.
+        patterns = [
+            r'["\']([^"\']*api[^"\']*)["\']',
+            r'["\']([^"\']*json[^"\']*)["\']',
+            r'data-endpoint=["\']([^"\']+)["\']',
+            r'url:\s*["\']([^"\']+)["\']',
+            r'fetch\(["\']([^"\']+)["\']',
+        ]
+        
+        for pattern in patterns:
+            matches = re.findall(pattern, html, re.IGNORECASE)
+            endpoints.extend(matches[:5])
+        
+        return list(set(endpoints))
+    
     def discover_agenda_deep(self, landing_url: str, source_id: str, max_depth: int = 3) -> Dict:
         """
         Deep discovery that keeps drilling until finding agenda-like document.
@@ -494,6 +533,10 @@ class DeepAgendaDiscovery:
         
         visited: Set[str] = set()
         current_url = landing_url
+        
+        # Get source config
+        source_config = self.SOURCE_PATTERNS.get(source_id, {})
+        source_mode = source_config.get('mode', 'standard')
         
         for depth in range(max_depth + 1):
             result['depth_reached'] = depth
@@ -550,12 +593,41 @@ class DeepAgendaDiscovery:
             else:
                 # HTML page - extract links
                 html = content.decode('utf-8', errors='ignore')
+                
+                # API-FIRST MODE: Check for API endpoints
+                if source_mode == 'api_first' and depth == 0:
+                    api_endpoints = self.scan_for_api_endpoints(html)
+                    if api_endpoints:
+                        step = {
+                            'depth': depth,
+                            'url': current_url,
+                            'type': 'HTML',
+                            'api_endpoints_found': api_endpoints
+                        }
+                        result['discovery_path'].append(step)
+                        # Note: For now we continue with normal crawl even if API found
+                        # Full API implementation would call endpoints here
+                
                 links = self.extract_links_v2(html, current_url, source_id, depth)
+                
+                # MEETING LIST MODE: Extract up to 15 meeting links at depth 0
+                if source_mode == 'meeting_list' and depth == 0:
+                    meeting_links = [l for l in links if l['score'] > 20][:15]
+                    step = {
+                        'depth': depth,
+                        'url': current_url,
+                        'type': 'HTML',
+                        'mode': 'meeting_list',
+                        'meeting_links_found': len(meeting_links),
+                        'top_meeting_links': meeting_links[:5]
+                    }
+                    result['discovery_path'].append(step)
                 
                 # Classify the page itself
                 parsed_html = self._parse_html(content, current_url)
                 page_type = parsed_html.doc_type
                 
+                # Add step if not already added by special modes
                 step = {
                     'depth': depth,
                     'url': current_url,
@@ -564,7 +636,9 @@ class DeepAgendaDiscovery:
                     'links_found': len(links),
                     'top_links': links[:5]
                 }
-                result['discovery_path'].append(step)
+                # Check if we already have a step for this depth
+                if not result['discovery_path'] or result['discovery_path'][-1]['depth'] != depth:
+                    result['discovery_path'].append(step)
                 
                 # If this page IS the agenda (rare), use it
                 if page_type == 'agenda' and len(parsed_html.text) > 1000:
@@ -576,7 +650,7 @@ class DeepAgendaDiscovery:
                     return result
                 
                 # Collect candidates for reporting
-                for link in links[:10]:
+                for link in links[:15]:
                     result['all_candidates'].append({
                         'depth': depth,
                         'url': link['url'],
