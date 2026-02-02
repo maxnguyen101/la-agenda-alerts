@@ -203,45 +203,120 @@ class ProductionFetcher:
 
 
 class DocumentClassifier:
-    """Classifies documents as agenda, calendar, minutes, index, or no-agenda-yet."""
+    """Classifies documents based on content, not just keywords."""
+    
+    # Navigation terms to strip before classification
+    NAV_TERMS = ['home', 'about', 'contact', 'meetings', 'agendas', 'minutes', 
+                 'calendar', 'search', 'menu', 'navigation', 'skip to content',
+                 'privacy policy', 'terms of use', 'sitemap', 'login', 'logout']
+    
+    # High-signal agenda phrases
+    AGENDA_PHRASES = ['call to order', 'roll call', 'public comment', 'adjournment',
+                     'closed session', 'agenda item', 'item no.', 'item #', 
+                     'action item', 'consent calendar', 'public hearing']
+    
+    @staticmethod
+    def strip_nav_text(text: str) -> str:
+        """Remove navigation-like text before classification."""
+        lines = text.split('\n')
+        cleaned_lines = []
+        
+        for line in lines:
+            line_stripped = line.strip()
+            
+            # Skip very short lines
+            if len(line_stripped) < 4:
+                continue
+            
+            # Skip lines that are just navigation terms
+            line_lower = line_stripped.lower()
+            if line_stripped.lower() in DocumentClassifier.NAV_TERMS:
+                continue
+            
+            # Skip lines containing navigation terms as standalone words
+            is_nav = False
+            for term in DocumentClassifier.NAV_TERMS:
+                if re.search(r'\b' + re.escape(term) + r'\b', line_lower):
+                    # Check if it's just the nav term with minimal other content
+                    if len(line_stripped) < len(term) + 10:
+                        is_nav = True
+                        break
+            
+            if not is_nav:
+                cleaned_lines.append(line_stripped)
+        
+        return '\n'.join(cleaned_lines)
+    
+    @staticmethod
+    def count_item_markers(text: str) -> int:
+        """Count distinct item markers at line starts."""
+        lines = text.split('\n')
+        markers = set()
+        
+        for line in lines:
+            line_stripped = line.strip()
+            # Numbered patterns: 1., 1), 1]
+            if re.match(r'^\d+[\.\)\]]', line_stripped):
+                markers.add(re.match(r'^(\d+)', line_stripped).group(1))
+            # Lettered patterns: A., A), a.
+            elif re.match(r'^[A-Za-z][\.\)\]]', line_stripped):
+                markers.add(re.match(r'^([A-Za-z])', line_stripped).group(1).upper())
+            # Roman numerals: I., II., i.
+            elif re.match(r'^[IVXivx]+[\.\)\]]', line_stripped):
+                markers.add('ROMAN')
+        
+        return len(markers)
     
     @staticmethod
     def classify(text: str) -> str:
-        text_lower = text.lower()[:3000]  # Check first 3000 chars
+        """Classify document based on cleaned content."""
+        # Strip navigation text first
+        cleaned_text = DocumentClassifier.strip_nav_text(text)
+        cleaned_lower = cleaned_text.lower()[:5000]  # Check first 5000 chars of cleaned text
         
-        # Agenda indicators
-        agenda_indicators = ['agenda', 'agenda item', 'order of business', 'call to order',
-                           'item no', 'item #', 'resolution no', 'motion', 'public comment']
-        has_agenda = any(ind in text_lower for ind in agenda_indicators)
+        # Check for high-signal agenda phrases
+        has_agenda_phrase = any(phrase in cleaned_lower for phrase in DocumentClassifier.AGENDA_PHRASES)
         
-        # Calendar indicators
-        calendar_indicators = ['meeting calendar', 'schedule of meetings', 'calendar year']
-        has_calendar = any(ind in text_lower for ind in calendar_indicators)
+        # Count item markers
+        item_marker_count = DocumentClassifier.count_item_markers(cleaned_text)
+        
+        # Check for generic "agenda" keyword (without high-signal phrases)
+        has_generic_agenda = 'agenda' in cleaned_lower and not has_agenda_phrase
+        
+        # Calendar indicators (in cleaned text)
+        calendar_indicators = ['meeting calendar', 'schedule of meetings', 'calendar year',
+                              'fy20', 'fiscal year']
+        has_calendar = any(ind in cleaned_lower for ind in calendar_indicators)
         
         # Minutes indicators
-        minutes_indicators = ['meeting minutes', 'approved minutes', 'minutes of']
-        has_minutes = any(ind in text_lower for ind in minutes_indicators)
+        minutes_indicators = ['meeting minutes', 'approved minutes', 'minutes of',
+                             'the meeting was called to order', 'present:']
+        has_minutes = any(ind in cleaned_lower for ind in minutes_indicators)
         
         # No agenda yet indicators
         no_agenda_indicators = ['no agenda', 'agenda not yet', 'agenda will be posted', 
-                               'not available', 'coming soon', 'check back later']
-        has_no_agenda = any(ind in text_lower for ind in no_agenda_indicators)
+                               'not available', 'coming soon', 'check back later',
+                               'agenda has not been posted']
+        has_no_agenda = any(ind in cleaned_lower for ind in no_agenda_indicators)
         
         # Index page indicators
         index_indicators = ['upcoming meetings', 'meeting list', 'all meetings', 
-                          'select a meeting', 'filter by', 'search meetings']
-        has_index = any(ind in text_lower for ind in index_indicators)
+                          'select a meeting', 'filter by', 'search meetings',
+                          'browse by', 'category:', 'tags:']
+        has_index = any(ind in cleaned_lower for ind in index_indicators)
         
         # Classification logic
-        if has_no_agenda and not has_agenda:
+        if has_no_agenda and not has_agenda_phrase:
             return 'no-agenda-yet'
-        elif has_agenda and not has_calendar:
+        elif has_agenda_phrase:
             return 'agenda'
-        elif has_calendar and not has_agenda:
+        elif item_marker_count >= 5:
+            return 'agenda'
+        elif has_calendar and not has_agenda_phrase and item_marker_count < 3:
             return 'calendar'
-        elif has_minutes and not has_agenda:
+        elif has_minutes and not has_agenda_phrase:
             return 'minutes'
-        elif has_index or (len(text) < 3000 and text.count('http') > 5):
+        elif has_index or has_generic_agenda or (len(cleaned_text) < 2000 and text.count('http') > 5):
             return 'index'
         else:
             return 'unknown'
@@ -642,6 +717,83 @@ class DeepAgendaDiscovery:
         
         return text.strip()
     
+    def extract_agenda_items_4tier(self, text: str) -> List[str]:
+        """4-tier agenda item extraction."""
+        lines = text.split('\n')
+        items = []
+        used_lines = set()  # Track used lines to avoid duplicates
+        
+        # Tier 1: Numbered list patterns (1., 1), 1], etc.)
+        for line in lines:
+            line_stripped = line.strip()
+            if line_stripped in used_lines:
+                continue
+            if re.match(r'^\d+[\.\)\]]\s+', line_stripped):
+                if len(line_stripped) > 20:
+                    item = re.sub(r'^[\d\.\)\]]+\s*', '', line_stripped)
+                    if len(item) > 15:
+                        items.append(item[:150])
+                        used_lines.add(line_stripped)
+                        if len(items) >= 10:
+                            break
+        
+        # Tier 2: Lettered patterns (A., B), a., etc.)
+        if len(items) < 3:
+            for line in lines:
+                line_stripped = line.strip()
+                if line_stripped in used_lines:
+                    continue
+                if re.match(r'^[A-Za-z][\.\)\]]\s+', line_stripped):
+                    if len(line_stripped) > 20:
+                        item = re.sub(r'^[A-Za-z\.\)\]]+\s*', '', line_stripped)
+                        if len(item) > 15:
+                            items.append(item[:150])
+                            used_lines.add(line_stripped)
+                            if len(items) >= 10:
+                                break
+        
+        # Tier 3: "Item" patterns ("Item 1", "Item No.", "Item #")
+        if len(items) < 3:
+            for line in lines:
+                line_stripped = line.strip()
+                if line_stripped in used_lines:
+                    continue
+                if re.search(r'\b[Ii]tem\s*[\d#\.]', line_stripped):
+                    if len(line_stripped) > 25:
+                        # Clean up "Item X" prefix
+                        item = re.sub(r'^[\s\-]*[Ii]tem\s*[\d#\.]+[:\-\s]*', '', line_stripped)
+                        if len(item) > 15:
+                            items.append(item[:150])
+                            used_lines.add(line_stripped)
+                            if len(items) >= 10:
+                                break
+        
+        # Tier 4: Heading fallback - top 5 longest distinct non-boilerplate lines
+        if len(items) < 3:
+            # Filter out boilerplate
+            boilerplate = ['agenda', 'minutes', 'meeting', 'call to order', 
+                          'adjournment', 'roll call', 'public comment']
+            candidates = []
+            for line in lines:
+                line_stripped = line.strip()
+                if line_stripped in used_lines:
+                    continue
+                if len(line_stripped) > 30 and len(line_stripped) < 200:
+                    line_lower = line_stripped.lower()
+                    if not any(bp in line_lower for bp in boilerplate):
+                        candidates.append((len(line_stripped), line_stripped))
+            
+            # Sort by length descending, take top 5
+            candidates.sort(reverse=True)
+            for _, line in candidates[:5]:
+                if line not in used_lines:
+                    items.append(line[:150])
+                    used_lines.add(line)
+                    if len(items) >= 5:
+                        break
+        
+        return items[:10]
+    
     def extract_meeting_facts(self, parsed: ParsedDoc) -> Dict:
         """Extract key meeting facts from parsed text."""
         text = parsed.text
@@ -715,12 +867,8 @@ class DeepAgendaDiscovery:
                     else:
                         facts['location'] = line_stripped[:120]
                     break
-            
-            # Agenda items (numbered or bulleted)
-            if re.match(r'^\d+[\.\)]\s+', line_stripped) or re.match(r'^[•\-\*]\s+', line_stripped):
-                if len(line_stripped) > 20 and len(facts['agenda_items']) < 10:
-                    item = re.sub(r'^[\d•\-\*\.\)]+\s*', '', line_stripped)
-                    if len(item) > 15:
-                        facts['agenda_items'].append(item[:150])
+        
+        # Extract agenda items using 4-tier method
+        facts['agenda_items'] = self.extract_agenda_items_4tier(text)
         
         return facts
