@@ -62,8 +62,12 @@ class AgendaDiscovery:
                         'committee', 'minutes', 'notice', 'hearing', 'council']
     
     # Keywords that suggest non-agenda content
-    NEGATIVE_KEYWORDS = ['archive', 'calendar', 'subscribe', 'donate', 'contact', 
+    NEGATIVE_KEYWORDS = ['archive', 'subscribe', 'donate', 'contact', 
                         'login', 'search', 'newsletter', 'rss', 'feed']
+    
+    # Strong agenda packet indicators
+    AGENDA_PACKET_KEYWORDS = ['agenda packet', 'packet', 'materials', 'board materials']
+    AGENDA_MEETING_KEYWORDS = ['agenda', 'meeting']
     
     # Date patterns
     DATE_PATTERNS = [
@@ -77,33 +81,59 @@ class AgendaDiscovery:
         """
         Score a link based on likelihood of being an agenda document.
         
-        Scoring rubric:
-        +25 if PDF
-        +10 if contains agenda/meeting keywords
-        +12 if contains date-like tokens
-        +8 if same domain
-        -10 if contains negative keywords
+        Improved scoring rubric:
+        +25 for PDF
+        +20 for "agenda packet"
+        +15 for "agenda" + ("packet" OR "materials" OR "meeting")
+        +10 for positive keywords (agenda, meeting, etc.)
+        +12 for date-like tokens
+        +8 for same domain
+        -30 if href filename contains "calendar"
+        -15 if anchor text contains "calendar" (and not "agenda")
+        -10 for other negative keywords
         """
         score = 0
         href_lower = href.lower()
         text_lower = anchor_text.lower()
         combined = href_lower + ' ' + text_lower
         
+        # Get filename from href
+        href_filename = href_lower.split('/')[-1].split('?')[0]
+        
         # +25 for PDF
         if href_lower.endswith('.pdf'):
             score += 25
         
-        # +10 for positive keywords
+        # STRONG PENALTY for calendar in filename
+        if 'calendar' in href_filename:
+            score -= 30
+        
+        # Penalty for calendar in anchor text (unless it also says agenda)
+        if 'calendar' in text_lower and 'agenda' not in text_lower:
+            score -= 15
+        
+        # +20 for "agenda packet"
+        if 'agenda packet' in combined:
+            score += 20
+        
+        # +15 for agenda + packet/materials/meeting
+        elif 'agenda' in combined:
+            if any(kw in combined for kw in ['packet', 'materials', 'meeting']):
+                score += 15
+            else:
+                score += 10  # Just agenda is still good
+        
+        # +10 for other positive keywords
         for keyword in self.POSITIVE_KEYWORDS:
-            if keyword in combined:
+            if keyword in combined and keyword != 'agenda':  # Already counted above
                 score += 10
-                break  # Only count once
+                break
         
         # +12 for date patterns
         for pattern in self.DATE_PATTERNS:
             if re.search(pattern, combined, re.IGNORECASE):
                 score += 12
-                break  # Only count once
+                break
         
         # +8 for same domain
         base_domain = urlparse(base_url).netloc
@@ -111,11 +141,11 @@ class AgendaDiscovery:
         if base_domain == link_domain or not link_domain:
             score += 8
         
-        # -10 for negative keywords
+        # -10 for other negative keywords
         for keyword in self.NEGATIVE_KEYWORDS:
             if keyword in combined:
                 score -= 10
-                break  # Only count once
+                break
         
         return score
     
@@ -149,20 +179,66 @@ class AgendaDiscovery:
         links.sort(key=lambda x: x['score'], reverse=True)
         return links
     
-    def find_best_agenda_link(self, html: str, base_url: str) -> Optional[Dict]:
-        """Find the best agenda document link from HTML."""
+    def find_best_agenda_link(self, html: str, base_url: str, sanity_check: bool = False, fetcher=None) -> Optional[Dict]:
+        """
+        Find the best agenda document link from HTML.
+        
+        If sanity_check=True and fetcher is provided, will validate the document
+        isn't a calendar and fall back to next best candidate if it is.
+        """
         links = self.extract_links(html, base_url)
         
         if not links:
             return None
         
-        # Filter for reasonable candidates (score > 0)
-        candidates = [l for l in links if l['score'] > 0]
+        # Filter for reasonable candidates (score > -20)
+        candidates = [l for l in links if l['score'] > -20]
         
         if not candidates:
             return links[0] if links else None  # Return highest even if negative
         
-        # Return highest scored
+        if sanity_check and fetcher:
+            # Try candidates in order until we find a non-calendar
+            for candidate in candidates[:5]:  # Check top 5
+                try:
+                    content, meta = fetcher.fetch(candidate['url'], 'sanity_check')
+                    if content and meta.get('status_code') == 200:
+                        # Check if it's a PDF
+                        if candidate['url'].lower().endswith('.pdf'):
+                            # Parse first page to check for calendar
+                            try:
+                                import io
+                                if pdfplumber:
+                                    with pdfplumber.open(io.BytesIO(content)) as pdf:
+                                        if len(pdf.pages) > 0:
+                                            first_page_text = pdf.pages[0].extract_text() or ""
+                                            first_page_lower = first_page_text.lower()
+                                            # Reject if calendar and not agenda
+                                            if 'calendar' in first_page_lower and 'agenda' not in first_page_lower:
+                                                logger.info(f"Rejecting calendar PDF: {candidate['url']}")
+                                                continue  # Try next candidate
+                                elif PyPDF2:
+                                    reader = PyPDF2.PdfReader(io.BytesIO(content))
+                                    if len(reader.pages) > 0:
+                                        first_page_text = reader.pages[0].extract_text() or ""
+                                        first_page_lower = first_page_text.lower()
+                                        if 'calendar' in first_page_lower and 'agenda' not in first_page_lower:
+                                            logger.info(f"Rejecting calendar PDF: {candidate['url']}")
+                                            continue
+                            except Exception as e:
+                                logger.warning(f"Sanity check failed for {candidate['url']}: {e}")
+                        
+                        # This candidate passed sanity check
+                        return candidate
+                        
+                except Exception as e:
+                    logger.warning(f"Failed to fetch {candidate['url']}: {e}")
+                    continue
+            
+            # If all failed sanity check, return first candidate anyway
+            return candidates[0]
+        
+        # Return highest scored without sanity check
         return candidates[0]
 
 

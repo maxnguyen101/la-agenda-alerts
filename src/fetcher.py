@@ -3,6 +3,7 @@
 Production Fetcher - Hardened with retries, caching, and resilience
 """
 
+import gzip
 import hashlib
 import json
 import logging
@@ -158,6 +159,15 @@ class ProductionFetcher:
             return cached['content'], meta
         
         content = response.read()
+        
+        # Handle gzip compression
+        content_encoding = response.headers.get('Content-Encoding', '').lower()
+        if content_encoding == 'gzip' or content[:2] == b'\x1f\x8b':
+            try:
+                content = gzip.decompress(content)
+            except Exception as e:
+                logger.warning(f"Failed to decompress gzip content: {e}")
+        
         return content, meta
     
     def _rate_limit(self, domain: str):
