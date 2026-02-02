@@ -184,6 +184,75 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+/**
+ * Handle Signup Form Submission
+ */
+function handleSignup(event) {
+  event.preventDefault();
+  
+  const email = document.getElementById('signupEmail').value;
+  const name = document.getElementById('signupName').value;
+  const customKeywords = document.getElementById('customKeywords').value;
+  
+  // Get checked keywords
+  const checkedKeywords = Array.from(document.querySelectorAll('input[name="keywords"]:checked'))
+    .map(cb => cb.value);
+  
+  // Combine all keywords
+  const allKeywords = [...checkedKeywords];
+  if (customKeywords) {
+    allKeywords.push(...customKeywords.split(',').map(k => k.trim()).filter(k => k));
+  }
+  
+  // Store signup data (in real app, this would go to your backend)
+  const signupData = {
+    email: email,
+    name: name,
+    keywords: allKeywords,
+    timestamp: new Date().toISOString(),
+    plan: 'free'
+  };
+  
+  // Save to localStorage for demo purposes
+  let signups = JSON.parse(localStorage.getItem('laagenda_signups') || '[]');
+  signups.push(signupData);
+  localStorage.setItem('laagenda_signups', JSON.stringify(signups));
+  
+  // Also prepare email data for you to process manually
+  const emailBody = `NEW SIGNUP
+
+Email: ${email}
+Name: ${name || 'Not provided'}
+Keywords: ${allKeywords.join(', ') || 'Default (all topics)'}
+Plan: Free
+Time: ${new Date().toLocaleString()}
+
+---
+To add this user to your system, forward this email to yourself and save to your subscriber database.`;
+  
+  // Open mailto with pre-filled data (for you to receive)
+  const mailtoLink = `mailto:mnguyen9@usc.edu?subject=${encodeURIComponent('New LA Agenda Alerts Signup: ' + email)}&body=${encodeURIComponent(emailBody)}`;
+  
+  // Try to open mailto (may not work on all devices, that's ok)
+  window.open(mailtoLink, '_blank');
+  
+  // Show success message
+  document.getElementById('signupFormContainer').style.display = 'none';
+  document.getElementById('signupSuccess').style.display = 'block';
+  
+  // Log for debugging
+  console.log('Signup completed:', signupData);
+}
+
+/**
+ * Reset Signup Form
+ */
+function resetSignup() {
+  document.getElementById('signupForm').reset();
+  document.getElementById('signupSuccess').style.display = 'none';
+  document.getElementById('signupFormContainer').style.display = 'block';
+}
+
 // Expose functions globally for onclick handlers
 window.getFreeAlerts = getFreeAlerts;
 window.viewSources = viewSources;
@@ -191,3 +260,5 @@ window.startFree = startFree;
 window.openPaymentModal = openPaymentModal;
 window.closePaymentModal = closePaymentModal;
 window.openSignupMailto = openSignupMailto;
+window.handleSignup = handleSignup;
+window.resetSignup = resetSignup;
